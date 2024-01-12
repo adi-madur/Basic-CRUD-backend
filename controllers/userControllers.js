@@ -83,11 +83,29 @@ exports.deleteUser = async (req, res) => {
         // We can get through URL in the following syntax
         const userId = req.params.id; //--> parameters - id
         const user = await User.findByIdAndDelete(userId);
-        req.status(200).json({
+
+        res.status(200).json({
             success:true,
             message: "User deleted successfully"
         })
 
+    } catch (error) {
+        console.log(error);
+        res.status(400).json({
+            success: false,
+            message: error.message,
+        })
+    }
+}
+
+exports.editUser = async (req, res) => {
+    try {
+        const user = await User.findByIdAndUpdate(req.params.id, req.body); //--> This means find the user through URL params, and update it 
+        // The message which is present in body (of form)
+        res.status(200).json({
+            success: true,
+            message: "User updated successfully"
+        })
     } catch (error) {
         console.log(error);
         res.status(400).json({
