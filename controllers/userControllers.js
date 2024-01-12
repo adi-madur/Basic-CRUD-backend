@@ -26,9 +26,9 @@ exports.createUser = async (req, res) => { // Since database is in another conti
 
         // Checking if email already exists in the database
         const userExists = User.findOne({email});
-        if(userExists){
-            throw new Error("User already exists");
-        }
+        // if(userExists){
+        //     throw new Error("User already exists");
+        // }
 
         const user = await User.create({ // ---> the data of user as name and email is stored in a variable --"user"-- with small letter u
             name, // --> this is name: name(Aditya); // -ES6 feature is used to shorten this-
@@ -49,4 +49,30 @@ exports.createUser = async (req, res) => { // Since database is in another conti
             message: error.message,
         })
     } 
+}
+
+// To find all the users from the database:
+exports.getUsers = async (req, res)=>{
+    try {
+        // Fetching data of all users
+        const users = await User.find({});
+
+        // Checking if user Data exists i.e at least one user is present
+        if(!users){
+            throw new Error("There are no record of users");
+        }
+
+
+        res.status(200).json({
+            success: true,
+            users
+        })
+
+    } catch (error) {
+        console.log(error);
+        res.status(400).json({
+            success: false,
+            message: error.message,
+        })
+    }
 }

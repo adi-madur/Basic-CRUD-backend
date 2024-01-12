@@ -1,6 +1,6 @@
 const express = require('express'); // Routes have special syntax, hence we need express
 // Controllers shouldn't be used directly in main file. They should be used in routes
-const { home, about, createUser } = require('../controllers/userControllers.js') // Importing all the controllers here
+const { home, about, createUser, getUsers } = require('../controllers/userControllers.js') // Importing all the controllers here
 
 
 // Just like we create instance of express for app using --"const app = express()"--
@@ -12,7 +12,8 @@ const router = express.Router();
 // We route using router
 router.get('/', home);
 router.get('/about', about);
-router.post('/createUser', createUser)
+router.post('/createUser', createUser);
+router.get('/getUsers', getUsers );
 
 module.exports = router;
 // Now this routes should be used in main file, instead of directly using logic/controllers
