@@ -19,6 +19,17 @@ exports.createUser = async (req, res) => { // Since database is in another conti
     try {
         const {name, email} = req.body;
 
+        // If name and email section are empty:
+        if(!name || !email) {
+            throw new Error("Name and Email are required");
+        }
+
+        // Checking if email already exists in the database
+        const userExists = User.findOne({email});
+        if(userExists){
+            throw new Error("User already exists");
+        }
+
         const user = await User.create({ // ---> the data of user as name and email is stored in a variable --"user"-- with small letter u
             name, // --> this is name: name(Aditya); // -ES6 feature is used to shorten this-
             email // --> this is email: email(am@gmail.com);

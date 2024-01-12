@@ -9,7 +9,7 @@ const cors = require('cors'); // Cross Origin Request to allow URL's of front-en
 // Database connection {Should be done before routing of the server}
 connectToDb();
 
-// -------Express Middleware----- // Used to send data while requesting like GET request.
+// -------Express Middleware----- // Used to send data while requesting like POST request.
 // Middleware's here are in the syntax of app.use()
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
